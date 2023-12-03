@@ -1,25 +1,17 @@
 
 import React from 'react'
+import UsersTable from './UsersTable'
 
-interface User {
-    id : number;
-    name : string;
-    
+interface Props{
+  searchParams : {sortOrder : string}
 }
 
-const users = async() => { // msut be async for fetch data
-const res = await fetch('https://jsonplaceholder.typicode.com/users',{next:{revalidate:10}}); //await word is important
-// {next:{revalidate:10}} veut dire que les data vont etre recharge tout les 10 s.
-
-const Users : User[]  = await res.json(); // .json() //get in json
-
+const users = ({searchParams:{sortOrder}}:Props) => { 
   return (
     <>
-    <h4>User list</h4>
-    <h4>{new Date().toLocaleTimeString()}</h4>
-    <ul>{Users.map(user => <li key = {user.id} >{user.name}</li>)}</ul> 
+    <h1>User list</h1>
+    <UsersTable sortOrder = {sortOrder} />
     </>
-    
   )
 }
 
